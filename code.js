@@ -1,3 +1,6 @@
+const offers = []; // Array to store the offers
+const currentUrl = window.location.href; // Get the current URL
+
 // Get all <li> elements that contain offer information
 const offerElements = document.querySelectorAll('li.offer');
 
@@ -13,17 +16,28 @@ offerElements.forEach((offerElement, index) => {
     const amountSpan = offerElement.querySelector('div.cb.ng-scope span.amount.ng-binding');
 
     // Extract the text content from the selected <span> elements
-    const name = nameSpan ? nameSpan.textContent.trim() : '';
-    const description = descriptionSpan ? descriptionSpan.textContent.trim() : '';
-    const amount = amountSpan ? amountSpan.textContent.trim() : '';
+    const varName = nameSpan ? nameSpan.textContent.trim() : '';
+    const varDescription = descriptionSpan ? descriptionSpan.textContent.trim() : '';
+    const varAmount = amountSpan ? amountSpan.textContent.trim() : '';
+    const varOffer = `Offer${index + 1}`; // Generate a unique offer identifier
 
-    // Log the extracted information for the current offer
-    console.log(`Offer ${index + 1}:`);
-    console.log('Name:', name);
-    console.log('Description:', description);
-    console.log('Amount:', amount);
-    console.log('-------------------------');
+    // Push the offer data into the 'offers' array in the desired format
+    offers.push({
+      cashBack: varAmount,
+      offerName: varName,
+      offerDetails: varDescription,
+      expiration: "NO EXPIRATION",
+      insertDate: "DIGITAL",
+      insertId: "CHECKOUT51",
+      url: currentUrl,
+      categories: "Food",
+      source: "CHECKOUT51",
+      couponId: `${varOffer}-${Math.random().toString(36).substring(7)}`
+    });
   } else {
     console.log(`Info element not found for Offer ${index + 1}`);
   }
 });
+
+const jsonString = JSON.stringify(offers);
+console.log(jsonString); // Log the formatted offers array
