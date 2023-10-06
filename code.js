@@ -22,18 +22,8 @@ offerElements.forEach((offerElement, index) => {
     var varOffer = `Offer${index + 1}`; // Generate a unique offer identifier
 
     // Push the offer data into the 'offers' array in the desired format
-    offers.push({
-      cashBack: varAmount,
-      offerName: varName,
-      offerDetails: varDescription,
-      expiration: "NO EXPIRATION",
-      insertDate: "DIGITAL",
-      insertId: "CHECKOUT51",
-      url: currentUrl,
-      categories: "Food",
-      source: "CHECKOUT51",
-      couponId: varOffer + "-" + createCouponId("")
-    });
+    var items = [varAmount, varName, varDescription, "NO EXPIRATION", "DIGITAL", "CHECKOUT51", currentUrl, "Food", "CHECKOUT51", varOffer + "-" + createCouponId("")];
+    offers.push(createDatabaseJson(items));
   } else {
     console.log(`Info element not found for Offer ${index + 1}`);
   }
